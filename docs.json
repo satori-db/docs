@@ -4,7 +4,7 @@
   "name": "Mint Starter Kit",
   "colors": {
     "primary": "#2286df",
-    "light": "#FFFFFF",
+    "light": "#2286df",
     "dark": "#FFFFFF"
   },
   "favicon": "/favicon.svg",
@@ -66,11 +66,6 @@
           "anchor": "Community",
           "href": "https://mintlify.com/community",
           "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
         }
       ]
     }
@@ -83,7 +78,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:satori@satoridb.com"
       }
     ],
     "primary": {
