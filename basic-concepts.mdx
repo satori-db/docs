@@ -1,0 +1,72 @@
+# Satori
+
+Control over your data doesn't have to be hard. Satori aims to give the developer superpowers without making it hard.
+
+## Installing
+
+1. First, download
+
+   ### Linux
+
+   ```bash
+   curl www.satoridb.com/download/linux
+   ```
+
+   ### Windows
+
+   ```bash
+   curl www.satoridb.com/download/win
+   ```
+2. Then run satori
+
+   ```bash
+   satori -a root admin
+   ```
+
+## Objects
+
+Objects are the only data type in Satori and these are polymorphic, these can be a node, a JSON object, a string entry or all at once. Satori allows interactions among objects without caring about their kind. All functions are avaible to all Objects. All objects have the following fields and they must be specified when an object is created **(only if you're working directly with websockets and not with the sdks)**
+
+<ParamField body="key" type="string">
+  A key for accessing the object, if not provied, an uuid will be generated
+</ParamField>
+
+<ParamField body="data" type="string, json, number, any[]" required>
+  This is the body that will be associated to your key, this can be anything you want
+</ParamField>
+
+<ParamField body="vertices" type="string[]">
+  This array relates your object with other nodes, relations can be keys to object or just strings with any other meaning.
+</ParamField>
+
+<ParamField body="type" type="string">
+  This is used to order your data by classes like users, posts, etc...
+</ParamField>
+
+<ParamField body="expires" type="bool">
+  If the objects expires it must be set to true
+</ParamField>
+
+<ParamField body="expiration_time" type="number">
+  The time in milliseconds that the object must live
+</ParamField>
+
+## Operations
+
+Operations or commands are the querys you make to the database, these are simple commands such as `SET, GET, PUT, DELETE`. Data operations modify the objects in the database and system operations modify the behavior of the system
+
+## Users
+
+When authentication is enabled, users are the only ones who can access the database, they can have roles that limit their capacity to access and modify the data, all users must have:
+
+<ParamField body="username" type="string" required>
+  
+</ParamField>
+
+<ParamField body="password" type="string">
+  
+</ParamField>
+
+<ParamField body="permissions" type="number">
+  `R || W || RW`
+</ParamField>
