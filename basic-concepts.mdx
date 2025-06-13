@@ -120,6 +120,10 @@ Is encouraged to set a network password in order to ensure a secure communicatio
   Lear how you can scale satori horizontally without effort
 </Card>
 
+### Memory balancing
+
+Satori can take up a lot of your computer's RAM, so, to fix that, Satori has a built-in memory balancing system that frees up memory when it has reached a critical point, because of that, satori stores objects as separate `json` files inside the `db` folder, this allows for faster reads whenever an object is not in memory because of memory saving matters.
+
 ## Learn more
 
 <CardGroup cols={2}>
