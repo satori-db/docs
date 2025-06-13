@@ -80,15 +80,16 @@ Operations or commands are the querys you make to the database, these are simple
       The operation you want to execute
     </ParamField>
     and
-    ```...request specific parameters such as (key, encryption_key, etc...)```
+    `...request specific parameters such as (key, encryption_key, etc...)`
   </Step>
 </Steps>
 
 You can perform operations on multiple objects that meet certain conditions using the `field_array` field, objects must match all the criteria in the field_array, example:
 
-```[{field: "status", value: "unpaid"}]```
+`[{field: "status", value: "unpaid"}]`
 
-    will return all objects that in their data have the field ```status``` as ```unpaid```
+will return all objects that in their data have the field `status` as `unpaid`
+
 ## Users
 
 When authentication is enabled, users are the only ones who can access the database, they can have roles that limit their capacity to access and modify the data, all users must have:
@@ -122,7 +123,7 @@ Is encouraged to set a network password in order to ensure a secure communicatio
 ## Learn more
 
 <CardGroup cols={2}>
-  <Card title="Data Operations" icon="database">
+  <Card title="Data Operations" icon="database" href="https://docs.satoridb.com/data-operations">
     Learn about Satori data operations
   </Card>
   <Card title="System Operations" icon="solar-system" href="https://docs.satoridb.com/system-operations">
