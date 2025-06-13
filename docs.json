@@ -17,8 +17,9 @@
             "group": "Get Started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "install",
+              "basic concepts",
+              "sdks"
             ]
           }
         ]
