@@ -23,6 +23,20 @@ Control over your data doesn't have to be hard. Satori aims to give the develope
    satori -a root admin
    ```
 
+## Arguments
+
+You can run Satori with multiple arguments, this are
+
+```bash
+-p //set the port where satori will be executing (defaults to 2310)
+-h //activate hyper cache
+-m //connect to a network
+-pwd //set network password
+-ai //run satori with ai capabilities (a ~100mb model will be downloaded)
+-a <username> <password> //enable authentication and set root user
+-mem //use satori as a memory-only database
+```
+
 ## Objects
 
 Objects are the only data type in Satori and these are polymorphic, these can be a node, a JSON object, a string entry or all at once. Satori allows interactions among objects without caring about their kind. All functions are avaible to all Objects. All objects have the following fields and they must be specified when an object is created **(only if you're working directly with websockets and not with the sdks)**
@@ -75,8 +89,26 @@ When authentication is enabled, users are the only ones who can access the datab
 
 References are strings that point to an specific object, an example of this is an email that points to an user
 
-`test@gmail.com -> Object(test_username)` 
+`test@gmail.com -> Object(test_username)`
 
 ### Network Password
 
-Is encouraged to set a network password in order to ensure a secure communication among all nodes without security flaws. All nodes in the same network must have the same network password
+Is encouraged to set a network password in order to ensure a secure communication among all nodes without security flaws. All nodes in the same network must have the same network password, read all about descentralization below
+
+<Card title="Descentralization" icon="webhook" href="https://docs.satoridb.com/descentralization">
+  Lear how you can scale satori horizontally without effort
+</Card>
+
+## Learn more
+
+<CardGroup cols={2}>
+  <Card title="Data Operations" icon="database">
+    Learn about Satori data operations
+  </Card>
+  <Card title="System Operations" icon="solar-system">
+    Learn about Satori system operations
+  </Card>
+  <Card title="Satori AI" icon="brain-circuit">
+    Learn about Satori data operations
+  </Card>
+</CardGroup>
