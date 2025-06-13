@@ -1,5 +1,16 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "System Operations"
 ---
 
+Satori provides system operations for controlling the inner workings of the engine.
+
+## SET_USER
+
+Create a user
+<ParamField body="username" type="string">
+</ParamField>
+<ParamField body="password" type="string">
+</ParamField>
+<ParamField body="permission" type="string">
+Must be ```R || W || RW```
+</ParamField>

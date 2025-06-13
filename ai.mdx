@@ -1,5 +1,39 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "AI "
 ---
 
+<Info>
+  If authentication is enabled you must specify `username` and `password` in every request
+</Info>
+
+Satori's mission is to give the developer more power over his data, that's why we plan offering a complete suite of AI capabilities built-in with satori, to start using our AI capabilities run satori with this command
+
+```bash
+satori -ai
+```
+
+This will download a `~100MB`  model.
+
+## AI Operations
+
+At the present moment, Satori only supports Natural Language Querys as AI capability. You can make the GET operation by just writing some text, the request should look like this.
+
+<ParamField body="query" type="string">
+  Describe which objects you want to get by using natural language.
+</ParamField>
+
+<ParamField body="top_k" type="int">
+  If specified you will receive the top K best matches
+</ParamField>
+
+<ParamField body="similarity" type="float">
+  Satori uses cosine similarity, if you specify this field only the objects that have the specified similarity will be considered similar (if top_k is specified the top_k objects with that specified simlarity will be returned), similarity should be a value between `0.0-1.0` being `1.0` totally equal.
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"type" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE", "data" : [REQUESTED_DATA]}
+```
+
+</ResponseExample>
