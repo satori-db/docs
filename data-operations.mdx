@@ -1,0 +1,259 @@
+---
+title: "Data Operations"
+---
+
+<Info>
+  If authentication is enabled you must specify `username` and `password` in every request
+</Info>
+
+## SET
+
+Creates an object
+
+<ParamField body="key" type="string">
+  A key for accessing the object, if not provied, an uuid will be generated
+</ParamField>
+
+<ParamField body="data" type="string, json, number, any[]" required>
+  This is the body that will be associated to your key, this can be anything you want
+</ParamField>
+
+<ParamField body="vertices" type="string[]">
+  This array relates your object with other nodes, relations can be keys to object or just strings with any other meaning.
+</ParamField>
+
+<ParamField body="type" type="string">
+  This is used to order your data by classes like users, posts, etc...
+</ParamField>
+
+<ParamField body="expires" type="bool">
+  If the objects expires it must be set to true
+</ParamField>
+
+<ParamField body="expiration_time" type="number">
+  The time in milliseconds that the object must live
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE"}
+```
+
+</ResponseExample>
+
+## GET
+
+Get an object or a series of objects
+
+<ParamField body="key" type="string">
+  
+</ParamField>
+
+<ParamField body="encryption_key" type="string">
+  You must pass it as a parameter if the object is encrypted
+</ParamField>
+
+<ParamField body="field_array" type="field[]">
+  Make a bulk operation in all objects that match the criteria
+</ParamField>
+
+<ParamField body="one" type="bool">
+  If true, only modify one object that matches the `field_array` criteria
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE", "data" : "REQUESTED DATA"}
+```
+
+</ResponseExample>
+
+## PUT
+
+Modify an object or a series of objects
+
+<ParamField body="key" type="string">
+  
+</ParamField>
+
+<ParamField body="encryption_key" type="string">
+  You must pass it as a parameter if the object is encrypted
+</ParamField>
+
+<ParamField body="replace_field" type="string" required>
+  The field to be updated
+</ParamField>
+
+<ParamField body="replace_value" type="any" required>
+  The new value
+</ParamField>
+
+<ParamField body="field_array" type="field[]">
+  Make a bulk operation in all objects that match the criteria
+</ParamField>
+
+<ParamField body="one" type="bool">
+  If true, only modify one object that matches the `field_array` criteria
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE"}
+```
+
+</ResponseExample>
+
+## DELETE
+
+Delete an object
+
+<ParamField body="key" type="string" required>
+  
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE"}
+```
+
+</ResponseExample>
+
+## PUSH
+
+Push a value into an array of an object or a series of object
+
+<ParamField body="key" type="string">
+  
+</ParamField>
+
+<ParamField body="array" type="string" required>
+  The array to modify
+</ParamField>
+
+<ParamField body="value" type="string" required>
+  The value to push
+</ParamField>
+
+<ParamField body="encryption_key" type="string">
+  You must pass it as a parameter if the object is encrypted
+</ParamField>
+
+<ParamField body="field_array" type="field[]">
+  Make a bulk operation in all objects that match the criteria
+</ParamField>
+
+<ParamField body="one" type="bool">
+  If true, only modify one object that matches the `field_array` criteria
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE"}
+```
+
+</ResponseExample>
+
+## POP
+
+Pop from an array of an object or a series of objects
+
+<ParamField body="key" type="string">
+  
+</ParamField>
+
+<ParamField body="array" type="string" required>
+  The array to modify
+</ParamField>
+
+<ParamField body="encryption_key" type="string">
+  You must pass it as a parameter if the object is encrypted
+</ParamField>
+
+<ParamField body="field_array" type="field[]">
+  Make a bulk operation in all objects that match the criteria
+</ParamField>
+
+<ParamField body="one" type="bool">
+  If true, only modify one object that matches the `field_array` criteria
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE"}
+```
+
+</ResponseExample>
+
+## SPLICE
+
+Splice from an array of an object or a series of objects
+
+<ParamField body="key" type="string">
+  
+</ParamField>
+
+<ParamField body="array" type="string" required>
+  The array to modify
+</ParamField>
+
+<ParamField body="encryption_key" type="string">
+  You must pass it as a parameter if the object is encrypted
+</ParamField>
+
+<ParamField body="field_array" type="field[]">
+  Make a bulk operation in all objects that match the criteria
+</ParamField>
+
+<ParamField body="one" type="bool">
+  If true, only modify one object that matches the `field_array` criteria
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE"}
+```
+
+</ResponseExample>
+
+## REMOVE
+
+Remove a value from an array of an object or a series of objects
+
+<ParamField body="key" type="string">
+  
+</ParamField>
+
+<ParamField body="array" type="string" required>
+  The array to modify
+</ParamField>
+
+<ParamField body="value" type="string" required>
+  The value to be removed
+</ParamField>
+
+<ParamField body="encryption_key" type="string">
+  You must pass it as a parameter if the object is encrypted
+</ParamField>
+
+<ParamField body="field_array" type="field[]">
+  Make a bulk operation in all objects that match the criteria
+</ParamField>
+
+<ParamField body="one" type="bool">
+  If true, only modify one object that matches the `field_array` criteria
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE"}
+```
+
+</ResponseExample>

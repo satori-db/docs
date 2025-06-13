@@ -67,8 +67,28 @@ Objects are the only data type in Satori and these are polymorphic, these can be
 
 ## Operations
 
-Operations or commands are the querys you make to the database, these are simple commands such as `SET, GET, PUT, DELETE`. Data operations modify the objects in the database and system operations modify the behavior of the system
+Operations or commands are the querys you make to the database, these are simple commands such as `SET, GET, PUT, DELETE`. Data operations modify the objects in the database and system operations modify the behavior of the system. To make a request you must
 
+<Steps>
+  <Step title="Connect to Satori via websocket">
+    
+  </Step>
+  <Step title="Send the request">
+    The request must be a JSON object and have:
+
+    <ParamField body="command" type="string" required>
+      The operation you want to execute
+    </ParamField>
+    and
+    ```...request specific parameters such as (key, encryption_key, etc...)```
+  </Step>
+</Steps>
+
+You can perform operations on multiple objects that meet certain conditions using the `field_array` field, objects must match all the criteria in the field_array, example:
+
+```[{field: "status", value: "unpaid"}]```
+
+    will return all objects that in their data have the field ```status``` as ```unpaid```
 ## Users
 
 When authentication is enabled, users are the only ones who can access the database, they can have roles that limit their capacity to access and modify the data, all users must have:
@@ -105,10 +125,13 @@ Is encouraged to set a network password in order to ensure a secure communicatio
   <Card title="Data Operations" icon="database">
     Learn about Satori data operations
   </Card>
-  <Card title="System Operations" icon="solar-system">
+  <Card title="System Operations" icon="solar-system" href="https://docs.satoridb.com/system-operations">
     Learn about Satori system operations
   </Card>
-  <Card title="Satori AI" icon="brain-circuit">
-    Learn about Satori data operations
+  <Card title="Satori AI" icon="brain-circuit" href="https://docs.satoridb.com/ai">
+    Learn about Satori ai operations
+  </Card>
+  <Card title="Comming soon" icon="clock" href="https://docs.satoridb.com/soon">
+    Learn about what's comming next to Satori
   </Card>
 </CardGroup>
