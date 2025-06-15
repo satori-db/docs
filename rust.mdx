@@ -1,0 +1,302 @@
+# 📚 Satori Rust SDK
+
+This library allows you to easily and efficiently interact with the Satori database via WebSockets, supporting CRUD operations, real-time notifications, advanced queries, and graph-like relations.
+
+---
+
+## ✨ Main Features
+
+- **Ultra-fast CRUD operations** ⚡
+- **Advanced queries** using `field_array` 🔍
+- **Real-time notifications** 📢
+- **Graph-like relations** (vertices and references) 🕸️
+- **Data encryption and decryption** 🔐
+
+---
+
+## 🚀 Installation
+
+Add the following to your `Cargo.toml`:
+
+```toml
+[dependencies]
+satori-client = "0.1.0"
+tokio = { version = "1.36", features = ["full"] }
+```
+
+---
+
+## 🏁 Basic Usage
+
+```rust
+use satori_client::Satori;
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    let client = Satori::connect(
+        "username".to_string(),
+        "password".to_string(),
+        "ws://localhost:8000".to_string()
+    ).await?;
+
+    // Example: set data
+    client.set(serde_json::json!({
+        "key": "user:123",
+        "data": { "name": "John", "email": "john@example.com" },
+        "type": "user"
+    })).await?;
+
+    Ok(())
+}
+```
+
+---
+
+## 🗃️ CRUD Operations
+
+### Create Data
+
+```rust
+client.set(serde_json::json!({
+    "key": "user:123",
+    "data": { "name": "John", "email": "john@example.com" },
+    "type": "user"
+})).await?;
+```
+
+### Read Data
+
+```rust
+let user = client.get(serde_json::json!({ "key": "user:123" })).await?;
+```
+
+### Modify a Field
+
+```rust
+client.put(serde_json::json!({
+    "key": "user:123",
+    "replace_field": "name",
+    "replace_value": "Peter"
+})).await?;
+```
+
+### Delete Data
+
+```rust
+client.delete(serde_json::json!({ "key": "user:123" })).await?;
+```
+
+---
+
+## 🧩 Advanced Queries with `field_array` 🔍
+
+You can perform operations on multiple objects that meet certain conditions using the `field_array` field:
+
+```rust
+let results = client.get(serde_json::json!({
+    "field_array": [
+        { "field": "email", "value": "john@example.com" }
+    ]
+})).await?;
+```
+
+- **`field_array`** is an array of conditions `{ "field": ..., "value": ... }`.
+- You can combine it with `"one": true` to get only the first matching result.
+
+---
+
+## 🔔 Real-time Notifications
+
+Receive automatic updates when an object changes:
+
+```rust
+client.set_notify("user:123", |data| {
+    println!("User updated! {:?}", data);
+}).await?;
+```
+
+To stop receiving notifications:
+
+```rust
+client.unnotify("user:123").await?;
+```
+
+---
+
+## 🕸️ Relations and Graphs
+
+You can create relationships between objects (vertices):
+
+```rust
+client.set_vertex(serde_json::json!({
+    "key": "user:123",
+    "vertex": "friend:456",
+    "relation": "friend",
+    "encryption_key": "secret"
+})).await?;
+```
+
+And traverse the graph with DFS:
+
+```rust
+client.dfs(serde_json::json!({
+    "node": "user:123",
+    "encryption_key": "secret"
+})).await?;
+```
+
+Get all neighbors of an object:
+
+```rust
+client.get_vertex(serde_json::json!({
+    "key": "user:123",
+    "encryption_key": "secret",
+    "relation": "friends"
+})).await?;
+```
+
+Remove a specific neighbor:
+
+```rust
+client.delete_vertex(serde_json::json!({
+    "key": "user:123",
+    "vertex": "user:512",
+    "encryption_key": "secret"
+})).await?;
+```
+
+---
+
+## 🔐 Encryption and Security
+
+Easily encrypt and decrypt data:
+
+```rust
+client.encrypt(serde_json::json!({
+    "key": "user:123",
+    "encryption_key": "secret"
+})).await?;
+
+client.decrypt(serde_json::json!({
+    "key": "user:123",
+    "encryption_key": "secret"
+})).await?;
+```
+
+---
+
+## 📦 Array and Reference Manipulation Methods
+
+Below are the available methods to manipulate arrays and references in the Satori database using the Rust client:
+
+### 🔹 push
+Adds a value to an existing array in an object.
+```rust
+client.push(serde_json::json!({
+    "key": "user:123",
+    "array": "friends",
+    "value": "user:456"
+})).await?;
+```
+
+### 🔹 pop
+Removes the last element from an array in an object.
+```rust
+client.pop(serde_json::json!({
+    "key": "user:123",
+    "array": "friends"
+})).await?;
+```
+
+### 🔹 splice
+Modifies an array in an object (for example, to cut or replace elements).
+```rust
+client.splice(serde_json::json!({
+    "key": "user:123",
+    "array": "friends"
+})).await?;
+```
+
+### 🔹 remove
+Removes a specific value from an array in an object.
+```rust
+client.remove(serde_json::json!({
+    "key": "user:123",
+    "array": "friends",
+    "value": "user:456"
+})).await?;
+```
+
+### 🔹 setRef
+Sets a reference to another object.
+```rust
+client.set_ref(serde_json::json!({
+    "key": "user:123",
+    "ref": "profile:123"
+})).await?;
+```
+
+### 🔹 getRefs
+Retrieves all references for an object.
+```rust
+let refs = client.get_refs(serde_json::json!({
+    "key": "user:123"
+})).await?;
+```
+
+### 🔹 deleteRef
+Deletes a specific reference from an object.
+```rust
+client.delete_ref(serde_json::json!({
+    "key": "user:123",
+    "ref": "profile:123"
+})).await?;
+```
+
+---
+
+## 📝 Complete Example
+
+```rust
+use satori_client::Satori;
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    let client = Satori::connect(
+        "username".to_string(),
+        "password".to_string(),
+        "ws://localhost:8000".to_string()
+    ).await?;
+
+    client.set(serde_json::json!({
+        "key": "user:1",
+        "data": { "name": "Carlos", "age": 30 },
+        "type": "user"
+    })).await?;
+
+    client.set_notify("user:1", |data| {
+        println!("Real-time update: {:?}", data);
+    }).await?;
+
+    Ok(())
+}
+```
+
+---
+
+## 🧠 Key Concepts
+
+- **key**: Unique identifier of the object.
+- **type**: Object type (e.g., 'user').
+- **field_array**: Advanced filters for bulk operations.
+- **notifications**: Subscription to real-time changes.
+- **vertices**: Graph-like relationships between objects.
+
+---
+
+## 💬 Questions or Suggestions?
+
+Feel free to open an issue or contribute!
+With ❤️ from the Satori team.
+
+---
