@@ -66,7 +66,7 @@ Explaining this code:
 - peers is the list of all peers your node is connected to
 - references is a `HashMap<String, String>` where all the references are
 - stats is a `HashMap<String, (f32, f32)>`  that tracks the size of object and the time they are accessed with the purpouse of memory balancing. When an object is accessed or modified we recommend to change the first value to the actual size of the object and increment the second value by one.
-- notify is a function that notifies to all peers in the network that the current object has been updated, it takes the object's `key` as parameter
+- notify is a function that notifies to all peers in the network that the current object has been updated, it takes a `&mut object` as parameter
 - rq is the request as json
 
 In the function called `list` you must return a vec with the name of all the operations you will declare in this library, the name of the operations and the names on the list must be equal
