@@ -9,13 +9,13 @@ Control over your data doesn't have to be hard. Satori aims to give the develope
    ### Linux
 
    ```bash
-   curl www.satoridb.com/download/linux
+   bash -c "$(curl -fsSL https://satoridb.com/linux/setup.sh)"
    ```
 
    ### Windows
 
    ```bash
-   curl www.satoridb.com/download/win
+   powershell -ExecutionPolicy Bypass -NoProfile -Command "Invoke-WebRequest -Uri 'https://satoridb.com/win/setup.ps1' -OutFile 'setup.ps1'; .\setup.ps1"
    ```
 2. Then run satori
 
@@ -123,6 +123,12 @@ Is encouraged to set a network password in order to ensure a secure communicatio
 ### Memory balancing
 
 Satori can take up a lot of your computer's RAM, so, to fix that, Satori has a built-in memory balancing system that frees up memory when it has reached a critical point, because of that, satori stores objects as separate `json` files inside the `db` folder, this allows for faster reads whenever an object is not in memory because of memory saving matters.
+
+### HyperCache
+HyperCache technollogy allows to make all of Satori's querys in `logN` time even when you're filtering by custom paramaters with field_array. This consumes more memory than a normal execution of Satori so use it with caution. To activate HyperCache just r
+```bash
+satori -h
+```
 
 ## Learn more
 
