@@ -224,6 +224,31 @@ $client->deleteRef(['key' => 'user:123', 'ref' => 'profile:123']);
 
 ---
 
+# 🐘 Schema Class (Data Model) — PHP
+
+You can use the `Schema` class to model your data in an object-oriented way:
+
+```php
+use Satori\Satori;
+use Satori\Schema;
+
+$satori = new Satori("username", "password", "ws://localhost:1234");
+$satori->connect();
+
+$user = new Schema($satori, "user", ["name" => "Anna"], "my_key");
+$user->set();
+```
+
+
+It includes useful methods such as:
+
+- `set`, `delete`, `encrypt`, `decrypt`, `set_vertex`, `get_vertex`, `delete_vertex`, `dfs`
+
+- Reference methods: `set_ref`, `get_refs`, `delete_refs`
+
+- Array methods: `push`, `pop`, `splice`, `remove`
+
+
 ## 📝 Complete Example
 
 ```php

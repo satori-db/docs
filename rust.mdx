@@ -255,6 +255,30 @@ client.delete_ref(serde_json::json!({
 
 ---
 
+# 🦀 Schema Struct (Data Model) — Rust
+
+You can use the `Schema` struct to model your data in an object-oriented way:
+
+```rust
+use satori_client::{Satori, Schema};
+
+let satori = Satori::connect("username", "password", "ws://localhost:1234").await.unwrap();
+
+let mut user = Schema::new(&satori, "user", Some("my_key".into()), Some(json!({ "name": "Anna" })));
+
+user.set().await.unwrap();
+
+```
+
+It includes useful methods such as:
+
+- `set`, `delete`, `encrypt`, `decrypt`, `set_vertex`, `get_vertex`, `delete_vertex`, `dfs`
+
+- Reference methods: `set_ref`, `get_refs`, `delete_refs`
+
+- Array methods: `push`, `pop`, `splice`, `remove`
+
+
 ## 📝 Complete Example
 
 ```rust
@@ -281,6 +305,8 @@ async fn main() -> anyhow::Result<()> {
     Ok(())
 }
 ```
+
+
 
 ---
 

@@ -234,6 +234,25 @@ await client.delete_ref({ 'key': 'user:123', 'ref': 'profile:123' })
 
 ---
 
+
+## Schema Class (Data Model) 
+
+You can use the `Schema` class to model your data in an object-oriented way:
+
+```python
+from satori_client import Satori, Schema
+import asyncio
+
+async def main():
+    satori = Satori("username", "password", "ws://localhost:1234")
+    await satori.connect()
+
+    user = Schema(satori, "user", key="my_key", body={"name": "Anna"})
+    await user.set()
+
+asyncio.run(main())
+
+
 ## 📝 Complete Example
 
 ```python
@@ -255,6 +274,14 @@ async def main():
 asyncio.run(main())
 ```
 
+It includes useful methods such as:
+
+- `set`, `delete`, `encrypt`, `decrypt`, `set_vertex`, `get_vertex`, `delete_vertex`, `dfs`
+
+- Reference methods: `set_ref`, `get_refs`, `delete_refs`
+
+- Array methods: `push`, `pop`, `splice`, `remove`
+
 ---
 
 ## 🧠 Key Concepts
@@ -271,4 +298,3 @@ asyncio.run(main())
 
 Feel free to open an issue or contribute!
 With ❤️ from the Satori team.
-
