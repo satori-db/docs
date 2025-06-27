@@ -20,7 +20,8 @@
               "install",
               "basic-concepts",
               "sdks",
-              "advanced-concepts"
+              "advanced-concepts",
+              "deploying"
             ]
           }
         ]

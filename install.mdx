@@ -4,16 +4,17 @@ title: "Installing"
 
 Let's get started with satori
 
-1. First, download
+1. First, execute
 
-   <CardGroup cols={2}>
-     <Card title="Linux" icon="linux" href="https://satoridb.com/linux/satori">
-       Press to download the linux executable
-     </Card>
-     <Card title="Windows" icon="windows" href="https://satoridb.com/win/satori.exe">
-       Press to download the windows executable
-     </Card>
-   </CardGroup>
+ ## Linux
+ ```bash
+bash <(curl -s https://satoridb.com/scripts/install_satori_linux.sh)
+ ```
+## Windows
+```bash
+wsl && bash <(curl -s https://satoridb.com/scripts/install_satori_windows.sh)
+```
+ 
 2. Then run satori
 
    ```bash
