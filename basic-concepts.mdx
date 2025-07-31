@@ -28,7 +28,7 @@ Control over your data doesn't have to be hard. Satori aims to give the develope
 You can run Satori with multiple arguments, this are
 
 ```bash
--p //set the port where satori will be executing (defaults to 2310)
+-port //set the port where satori will be executing (defaults to 2310)
 -h //activate hyper cache
 -m //connect to a network
 -pwd //set network password
@@ -125,7 +125,9 @@ Is encouraged to set a network password in order to ensure a secure communicatio
 Satori can take up a lot of your computer's RAM, so, to fix that, Satori has a built-in memory balancing system that frees up memory when it has reached a critical point, because of that, satori stores objects as separate `json` files inside the `db` folder, this allows for faster reads whenever an object is not in memory because of memory saving matters.
 
 ### HyperCache
+
 HyperCache technollogy allows to make all of Satori's querys in `logN` time even when you're filtering by custom paramaters with field_array. This consumes more memory than a normal execution of Satori so use it with caution. To activate HyperCache just r
+
 ```bash
 satori -h
 ```

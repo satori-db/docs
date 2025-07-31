@@ -16,24 +16,67 @@ This will download a `~100MB`  model.
 
 ## AI Operations
 
-At the present moment, Satori only supports Natural Language Querys as AI capability. You can make the GET operation by just writing some text, the request should look like this.
+Satori implements some interesting AI features like training your own embedding model with your data, performing Aproximate Nearest Neighbors searchs, Natural Language Querys and Chatting with your data. This is accomplished via 4 function `train` `ann` `query` `ask`
+
+### QUERY
+
+Allows to make any query to the DB by using Natural language
 
 <ParamField body="query" type="string">
-  Describe which objects you want to get by using natural language.
+  Your query in natural language. Ex: Insert the value 5 in the grades array of everyone on class B.
 </ParamField>
 
-<ParamField body="top_k" type="int">
-  If specified you will receive the top K best matches
-</ParamField>
-
-<ParamField body="similarity" type="float">
-  Satori uses cosine similarity, if you specify this field only the objects that have the specified similarity will be considered similar (if top_k is specified the top_k objects with that specified simlarity will be returned), similarity should be a value between `0.0-1.0` being `1.0` totally equal.
+<ParamField body="backend" type="string">
+  The LLM backend to be used, this can be `ollama:model-name` || `openai:model-name`. If not specified it defaults to `openai:gpt-4o-mini`. If you're using OpenAI as backend you must specify `OPENAI_API_KEY` as an env variable.
 </ParamField>
 
 <ResponseExample>
 
 ```json response.json
-{"type" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE", "data" : [REQUESTED_DATA]}
+{"result" : "", "status": ""}
 ```
+
+</ResponseExample>
+
+### ASK
+
+Allows to chat with the DB.
+
+<ParamField body="question" type="string">
+  Your question in natural language. Ex: How many user over 25 years do we have?
+</ParamField>
+
+<ParamField body="backend" type="string">
+  The LLM backend to be used, this can be `ollama:model-name` || `openai:model-name`. If not specified it defaults to `openai:gpt-4o-mini`. If you're using OpenAI as backend you must specify `OPENAI_API_KEY` as an env variable.
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"response" : ""}
+```
+
+</ResponseExample>
+
+### ANN
+
+Perform an Aproximate Nearest Neighbors search
+
+<ParamField body="key" type="string">
+  Source object key
+</ParamField>
+
+<ParamField body="top_k" type="int">
+  Number of results to return
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"results" : []}
+```
+
+## TRAIN
+Train your custom embedding model. You can do it manually but Satori will automatically update it with new data. The model is located at the root of your db in the `satori_semantic_model` folder 
 
 </ResponseExample>

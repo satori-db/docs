@@ -20,7 +20,7 @@ Add the following to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-satori-client = "0.1.4"
+satori-client = "0.1.5"
 tokio = { version = "1.36", features = ["full"] }
 ```
 
@@ -190,7 +190,9 @@ client.decrypt(serde_json::json!({
 Below are the available methods to manipulate arrays and references in the Satori database using the Rust client:
 
 ### 🔹 push
+
 Adds a value to an existing array in an object.
+
 ```rust
 client.push(serde_json::json!({
     "key": "user:123",
@@ -200,7 +202,9 @@ client.push(serde_json::json!({
 ```
 
 ### 🔹 pop
+
 Removes the last element from an array in an object.
+
 ```rust
 client.pop(serde_json::json!({
     "key": "user:123",
@@ -209,7 +213,9 @@ client.pop(serde_json::json!({
 ```
 
 ### 🔹 splice
+
 Modifies an array in an object (for example, to cut or replace elements).
+
 ```rust
 client.splice(serde_json::json!({
     "key": "user:123",
@@ -218,7 +224,9 @@ client.splice(serde_json::json!({
 ```
 
 ### 🔹 remove
+
 Removes a specific value from an array in an object.
+
 ```rust
 client.remove(serde_json::json!({
     "key": "user:123",
@@ -228,7 +236,9 @@ client.remove(serde_json::json!({
 ```
 
 ### 🔹 setRef
+
 Sets a reference to another object.
+
 ```rust
 client.set_ref(serde_json::json!({
     "key": "user:123",
@@ -237,7 +247,9 @@ client.set_ref(serde_json::json!({
 ```
 
 ### 🔹 getRefs
+
 Retrieves all references for an object.
+
 ```rust
 let refs = client.get_refs(serde_json::json!({
     "key": "user:123"
@@ -245,18 +257,22 @@ let refs = client.get_refs(serde_json::json!({
 ```
 
 ### 🔹 deleteRef
+
 Deletes a specific reference from an object.
+
 ```rust
 client.delete_ref(serde_json::json!({
     "key": "user:123",
     "ref": "profile:123"
 })).await?;
 ```
+
 ## 🤖 AI Methods
 
-
 ### 🔹 ann
+
 Perform an Aproximate Nearest Neighbors search
+
 ```rust
 client.ann(serde_json::json!({
     "key": "user:123",
@@ -265,7 +281,9 @@ client.ann(serde_json::json!({
 ```
 
 ### 🔹 query
+
 Make a query to the db in natural language
+
 ```rust
 client.query(serde_json::json!({
     "query": "Insert the vertex user:2 to user:123",
@@ -273,9 +291,10 @@ client.query(serde_json::json!({
 })).await?;
 ```
 
-
 ### 🔹 ask
+
 Ask questions about your data
+
 ```rust
 client.ask(serde_json::json!({
     "question": "How many users over 25 do we have",
@@ -283,9 +302,10 @@ client.ask(serde_json::json!({
 })).await?;
 ```
 
-
 ### 🔹 train
+
 Train an embedding model with your data.
+
 ```rust
 client.train(serde_json::json!({
 })).await?;
@@ -313,17 +333,13 @@ let satori = Satori::connect("username", "password", "ws://localhost:1234").awai
 let mut user = Schema::new(&satori, "user", Some("my_key".into()), Some(json!({ "name": "Anna" })));
 
 user.set().await.unwrap();
-
 ```
 
 It includes useful methods such as:
 
 - `set`, `delete`, `encrypt`, `decrypt`, `set_vertex`, `get_vertex`, `delete_vertex`, `dfs`
-
 - Reference methods: `set_ref`, `get_refs`, `delete_refs`
-
 - Array methods: `push`, `pop`, `splice`, `remove`
-
 
 ## 📝 Complete Example
 
@@ -352,8 +368,6 @@ async fn main() -> anyhow::Result<()> {
 }
 ```
 
-
-
 ---
 
 ## 🧠 Key Concepts
@@ -367,18 +381,21 @@ async fn main() -> anyhow::Result<()> {
 ---
 
 ## Responses
+
 All responses obbey the following pattern:
 
 ```ts
 {
   data: any //the requested data if any
   message: string //status message
-  status: string //SUCCESS || ERROR
+  type: string //SUCCESS || ERROR
 }
 ```
 
 AI responses obbey a different patern:
+
 ## ask
+
 ```ts
 {
   response: string //response to the question
@@ -386,6 +403,7 @@ AI responses obbey a different patern:
 ```
 
 ## query
+
 ```ts
 {
   result: string //response from the operation made in the db
@@ -393,9 +411,17 @@ AI responses obbey a different patern:
 }
 ```
 
+## ann
+
+```ts
+{
+  results: array //response from the operation made in the db
+}
+```
+
 ## 💬 Questions or Suggestions?
 
-Feel free to open an issue or contribute!
+Feel free to open an issue or contribute\!
 With ❤️ from the Satori team.
 
 ---
