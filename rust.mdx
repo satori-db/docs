@@ -20,7 +20,7 @@ Add the following to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-satori-client = "0.1.0"
+satori-client = "0.1.4"
 tokio = { version = "1.36", features = ["full"] }
 ```
 
@@ -252,6 +252,52 @@ client.delete_ref(serde_json::json!({
     "ref": "profile:123"
 })).await?;
 ```
+## 🤖 AI Methods
+
+
+### 🔹 ann
+Perform an Aproximate Nearest Neighbors search
+```rust
+client.ann(serde_json::json!({
+    "key": "user:123",
+    "top_k" : 5 //return the top 5 neighbors
+})).await?;
+```
+
+### 🔹 query
+Make a query to the db in natural language
+```rust
+client.query(serde_json::json!({
+    "query": "Insert the vertex user:2 to user:123",
+    "backend": "openai:gpt-4o-mini"
+})).await?;
+```
+
+
+### 🔹 ask
+Ask questions about your data
+```rust
+client.ask(serde_json::json!({
+    "question": "How many users over 25 do we have",
+    "backend": "openai:gpt-4o-mini"
+})).await?;
+```
+
+
+### 🔹 train
+Train an embedding model with your data.
+```rust
+client.train(serde_json::json!({
+})).await?;
+```
+
+### Notes on AI
+
+In the functions where `backend` must be specified this parameter must passed with the following format: `openai:model-name` or `ollama:model-name`. If you're using OpenAI as your backend you must specify the `OPENAI_API_KEY` env variable. If backend isn't specified `openai:gpt-4o-mini` will be used as default.
+
+The trained embedding model will be at the root of your db in a folder called `satori_semantic_model`.
+
+You can train your embedding model manually whenever you want to but Satori will automatically fine-tune your model with any new updates and use this updated model for all emebedding operations.
 
 ---
 
@@ -319,6 +365,33 @@ async fn main() -> anyhow::Result<()> {
 - **vertices**: Graph-like relationships between objects.
 
 ---
+
+## Responses
+All responses obbey the following pattern:
+
+```ts
+{
+  data: any //the requested data if any
+  message: string //status message
+  status: string //SUCCESS || ERROR
+}
+```
+
+AI responses obbey a different patern:
+## ask
+```ts
+{
+  response: string //response to the question
+}
+```
+
+## query
+```ts
+{
+  result: string //response from the operation made in the db
+  status: string //status
+}
+```
 
 ## 💬 Questions or Suggestions?
 

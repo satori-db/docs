@@ -1,5 +1,6 @@
 # 📚 Satori Node.js SDK
 
+Welcome to the official documentation for **Satori Node.js SDK**! 🚀  
 This library allows you to interact easily and efficiently with the Satori database via WebSockets, supporting CRUD operations, real-time notifications, and advanced queries.
 
 ---
@@ -93,7 +94,7 @@ await client.get({
 
 ## 🔔 Real-time Notifications
 
-Receive automatic updates when an object changes\!
+Receive automatic updates when an object changes!
 
 ```js
 client.notify('user:123', data => {
@@ -128,26 +129,6 @@ And traverse the graph with DFS:
 await client.dfs({ node: 'user:123', encryption_key: 'secret' });
 ```
 
-You can get all neighbors of an object
-
-```js
-await client.getVertex({
-  key: 'user:123',
-  encryption_key: 'secret',
-  relation: "friends"
-});
-```
-
-You can eliminate an specific neighbor
-```js
-await client.deleteVertex({
-  key: 'user:123',
-  vertex: 'user:512'
-  encryption_key: 'secret',
-});
-```
-
-
 ---
 
 ## 🔐 Encryption and Security
@@ -158,6 +139,27 @@ Easily encrypt and decrypt data:
 await client.encrypt({ key: 'user:123', encryption_key: 'secret' });
 await client.decrypt({ key: 'user:123', encryption_key: 'secret' });
 ```
+
+---
+
+## 🧰 Schema Class (Data Model)
+
+You can use the `Schema` class to model your data in an object-oriented way:
+
+```js
+import Schema from 'satori-node/schema';
+
+class User extends Schema {
+  // Define your fields here
+}
+
+const user = new User({ name: 'Anna' }, client, 'user');
+await user.set();
+```
+
+It includes useful methods such as:
+- `set`, `delete`, `encrypt`, `setVertex`, `getVertex`, `deleteVertex`, `dfs`
+- Array methods: `push`, `pop`, `splice`, `remove`
 
 ---
 
@@ -225,47 +227,66 @@ await client.deleteRef({ key: 'user:123', ref: 'profile:123' });
 ---
 
 
-## 🧰 Schema Class (Data Model)
+## 🤖 AI Methods
+Satori has AI features integrated that boost developers productivity. By example you can train an embedding model with your data and use it wherever you want to. 
+You can train your embedding model manually whenever you want to but Satori will automatically fine-tune your model with any new updates and use this updated model for all emebedding operations.
 
-You can use the `Schema` class to model your data in an object-oriented way:
+### 🔹 train
+Train an embedding model with your data. The model will be at the root of your db in the `satori_semantic_model` folder
+```python
+await client.train();
+```
 
-```js
-import Schema from 'satori-node/schema';
+### 🔹 ann
+Perform an Aproximate Nearest Neighbors search
+```python
+await client.ann({'key' : 'user:123', 'top_k' : '5'});
+```
+- **key**: Source object key.
+- **top_k**: Number of nearest neighbors to return
 
-class User extends Schema {
-  // Define your fields here
+### 🔹 query
+Make querys in natural language
+```python
+await client.query({'query' : 'Insert the value 5 into the grades array of user:123', 'backend' : 'openai:gpt-4o-mini'|);
+```
+- **query**: Your query in natural language.
+- **ref**: The LLM backend. Must be `openai:model-name` or `ollama:model-name`, if not specified `openai:gpt-4o-mini` will be used as default. If you're using OpenAI as your backend you must specify the `OPENAI_API_KEY` env variable.
+
+### 🔹 ask
+Ask question about your data in natural language
+```python
+await client.ask({'question' : 'How many user over 25 years old do we have. Just return the number.', 'backend' : 'openai:gpt-4o-mini'});
+```
+- **question**: Your question in natural language.
+- **ref**: The LLM backend. Must be `openai:model-name` or `ollama:model-name`, if not specified `openai:gpt-4o-mini` will be used as default. If you're using OpenAI as your backend you must specify the `OPENAI_API_KEY` env variable.
+
+## Responses
+All responses obbey the following pattern:
+
+```ts
+{
+  data: any //the requested data if any
+  message: string //status message
+  status: string //SUCCESS || ERROR
 }
-
-const user = new User({ name: 'Anna' }, client, 'user');
-await user.set();
 ```
 
-It includes useful methods such as:
-
-- `set`, `delete`, `encrypt`, `setVertex`, `getVertex`, `deleteVertex`, `dfs`
-- Array methods: `push`, `pop`, `splice`, `remove`
-
----
-
-## 📝 Complete Example
-
-```js
-const client = new Satori({ username, password, host });
-await client.connect();
-
-await client.set({
-  key: 'user:1',
-  data: { name: 'Carlos', age: 30 },
-  type: 'user'
-});
-
-client.notify('user:1', data => {
-  console.log('Real-time update:', data);
-});
+AI responses obbey a different patern:
+## ask
+```ts
+{
+  response: string //response to the question
+}
 ```
 
-
----
+## query
+```ts
+{
+  result: string //response from the operation made in the db
+  status: string //status
+}
+```
 
 ## 🧠 Key Concepts
 
@@ -275,11 +296,10 @@ client.notify('user:1', data => {
 - **notifications**: Subscription to real-time changes.
 - **vertices**: Graph-like relationships between objects.
 
----
 
 ## 💬 Questions or Suggestions?
 
-Feel free to open an issue or contribute\!\
+Feel free to open an issue or contribute!
 With ❤️ from the Satori team.
 
 ---
