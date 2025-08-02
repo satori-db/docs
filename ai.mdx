@@ -2,6 +2,23 @@
 title: "AI "
 ---
 
+## Pricing
+
+In order to use Satori AI features you must purchase and have a valid Satori AICore License.
+
+## Setup
+
+- You must have `python` installed
+- You must install the dependencies listed on [requeriments.txt](www.satoridb.com/requeriments.txt)
+
+```
+  pip install -r https://www.satoridb.com/requeriments.txt
+```
+
+- You must install `torch`, we suggest installing it from the official torch docs.
+
+---
+
 <Info>
   If authentication is enabled you must specify `username` and `password` in every request
 </Info>
@@ -9,7 +26,7 @@ title: "AI "
 Satori's mission is to give the developer more power over his data, that's why we plan offering a complete suite of AI capabilities built-in with satori, to start using our AI capabilities run satori with this command
 
 ```bash
-satori -ai
+satori -l <LICENSE_NUMBER> -ai //you only need to specify the license number in the first launch
 ```
 
 This will download a `~100MB`  model.
@@ -75,8 +92,5 @@ Perform an Aproximate Nearest Neighbors search
 ```json response.json
 {"results" : []}
 ```
-
-## TRAIN
-Train your custom embedding model. You can do it manually but Satori will automatically update it with new data. The model is located at the root of your db in the `satori_semantic_model` folder 
 
 </ResponseExample>

@@ -30,11 +30,12 @@ You can run Satori with multiple arguments, this are
 ```bash
 -port //set the port where satori will be executing (defaults to 2310)
 -h //activate hyper cache
--m //connect to a network
+-m <host> <port> //connect to a network, example: -m 127.0.0.1 2311
 -pwd //set network password
 -ai //run satori with ai capabilities (a ~100mb model will be downloaded)
 -a <username> <password> //enable authentication and set root user
 -mem //use satori as a memory-only database
+-t <threshold> //memory threshold at which MEMORY_BALANCE is activated, example: satori -t 80 (memory balancing will be activated at 80% memory consumption)
 ```
 
 ## Objects
