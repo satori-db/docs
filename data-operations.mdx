@@ -257,3 +257,135 @@ Remove a value from an array of an object or a series of objects
 ```
 
 </ResponseExample>
+
+## ENCRYPT
+
+Encrypt an object
+
+<ParamField body="key" type="string">
+  
+</ParamField>
+
+<ParamField body="encryption_key" type="string">
+  
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE"}
+```
+
+</ResponseExample>
+
+## DECRYPT
+
+Decrypt an object
+
+<ParamField body="key" type="string">
+  
+</ParamField>
+
+<ParamField body="encryption_key" type="string">
+  
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE"}
+```
+
+</ResponseExample>
+
+## SET_VERTEX
+
+Add a vertex to an object
+
+<ParamField body="key" type="string">
+  
+</ParamField>
+
+<ParamField body="vertex" type="string">
+  Vertex name, it doesn't need to be a key
+</ParamField>
+
+<ParamField body="relation" type="string">
+  Relation between vertices, ex: friends
+</ParamField>
+
+<ParamField body="encryption_key" type="string">
+  You must pass it as a parameter if the object is encrypted
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE"}
+```
+
+</ResponseExample>
+
+## GET_VERTEX
+
+List all vertices of a key
+
+<ParamField body="key" type="string">
+  
+</ParamField>
+
+<ParamField body="encryption_key" type="string">
+  You must pass it as a parameter if the object is encrypted
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE", "data" : [vertices]}
+```
+
+</ResponseExample>
+
+## DELETE_VERTEX
+
+Delete a vertex
+
+<ParamField body="key" type="string">
+  
+</ParamField>
+
+<ParamField body="vertex" type="string">
+  Vertex name, it doesn't need to be a key
+</ParamField>
+
+<ParamField body="encryption_key" type="string">
+  You must pass it as a parameter if the object is encrypted
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE"}
+```
+
+</ResponseExample>
+
+## DFS
+
+Make a DFS walk in the graph
+
+<ParamField body="node" type="string">
+  Key of the object.
+</ParamField>
+
+<ParamField body="relation" type="string">
+  If you want to make a DFS and only go through nodes with an specific type of relation
+</ParamField>
+
+<ResponseExample>
+
+```json response.json
+{"status" : "SUCCESS" || "ERROR", "message" : "OK" || "ERROR MESSAGE", "data" : [vertices]}
+```
+
+</ResponseExample>
