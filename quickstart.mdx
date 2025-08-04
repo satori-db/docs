@@ -4,16 +4,8 @@ title: "Quickstart"
 
 # Install satori
 
-### Windows
-
-```powershell
-powershell -ExecutionPolicy Bypass -NoProfile -Command "Invoke-WebRequest -Uri 'https://satoridb.com/setup.ps1' -OutFile 'setup.ps1'; .\setup.ps1"
-```
-
-### Linux
-
 ```bash
-bash -c "$(curl -fsSL https://satoridb.com/setup.sh)"
+npm i -g satoridb
 ```
 
 # Use it
@@ -24,40 +16,93 @@ Download our node SDK
 npm i satori-node
 ```
 
-CRUD
+## CRUD
 
-```javascript [expandable]
+```javascript expandable
 const {Satori} = require('satori-node');
 const satori = new Satori({host: 'ws://127.0.0.1:2321'});
 
-satori.connect().then(async () => {
-
-    const set_res = await satori.set({
-        data: {
-            "name" : "Jon",
-        }
-    })
-
-    if(set_res.type == "SUCCESS"){
-        const key = set_res.key;
-        const object = satori.get({
-            key: key
-        })
-        console.log(object)
-        
-        const res = await satori.put({
-            key: key,
-            replace_field: "name",
-            replace_value: "Jhon"
-        })
-        console.log(res);
-
-        await satori.delete({
-            key: key
-        })
-    }
-})
+async function main(){
+  await satori.connect();
+  
+  const key = await satori.set({data: {"email" : "test@test.com"}});
+  console.log(await satori.get({key}))
+  
+  await satori.put({key, replace_field: "email", replace_value: "tes2@test.com"})
+  await satori.delete({key})
+}
 ```
+
+## CHATBOT
+
+```javascript expandable
+import { Satori } from 'satori-node';
+
+async function runChatbot() {
+  const client = new Satori({
+    username: 'admin',
+    password: '1234',
+    host: 'ws://127.0.0.1:2310'
+  });
+  await client.connect();
+
+  console.log("Chatbot ready");
+
+  const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  async function askUser() {
+    readline.question('You: ', async (input) => {
+      if (input.toLowerCase() === 'exit') {
+        console.log('Closing chatbot...');
+        readline.close();
+        await cliente.disconnect();
+        process.exit(0);
+      }
+
+      // Guardar mensaje del usuario
+      const msgKey = `chat:msg:${Date.now()}`;
+      await cliente.set({
+        key: msgKey,
+        data: { sender: 'user', text: input, timestamp: Date.now() },
+        type: 'chat_message'
+      });
+
+      // Intentar responder usando la función ask (modelo NLP entrenado)
+      try {
+        const response = await cliente.ask({ question: input });
+        if (response && response.answer) {
+          console.log('Bot:', response.answer);
+
+          // Guardar respuesta del bot
+          const botMsgKey = `chat:msg:${Date.now()}-bot`;
+          await cliente.set({
+            key: botMsgKey,
+            data: { sender: 'bot', text: response.answer, timestamp: Date.now() },
+            type: 'chat_message'
+          });
+        } else {
+          // Respuesta por defecto si no hay resultado
+          console.log('Bot: Sorry, I do not understand.');
+        }
+      } catch (error) {
+        console.error('Error processing your question:', error);
+        console.log('Bot: Sorry, there was an error.');
+      }
+
+      askUser(); // Preguntar de nuevo
+    });
+  }
+
+  askUser();
+}
+
+runChatbot();
+```
+
+If you are curious about more examples, join our [discord](https://discord.gg/PhbtqeWEPr)
 
 For more information on the Node SDK or on other languages's SDKs go to the SDKs section
 
