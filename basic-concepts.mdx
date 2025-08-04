@@ -39,6 +39,25 @@ You can run Satori with multiple arguments, this are
 -t <threshold> //memory threshold at which MEMORY_BALANCE is activated, example: satori -t 80 (memory balancing will be activated at 80% memory consumption)
 ```
 
+## CLI
+
+When you install satori you also install Satori's CLI, run
+
+```bash
+satoridb -h
+```
+
+This way you'll receive instructions on how to use it.
+
+### CLI quickstart
+
+```bash
+>satoridb connect ws://127.0.0.1 admin root
+satori>set user:1 {"email": "test@test.com"}
+satori>get user:1
+#response
+```
+
 ## Objects
 
 Objects are the only data type in Satori and these are polymorphic, these can be a node, a JSON object, a string entry or all at once. Satori allows interactions among objects without caring about their kind. All functions are avaible to all Objects. All objects have the following fields and they must be specified when an object is created **(only if you're working directly with websockets and not with the sdks)**
@@ -128,7 +147,7 @@ Satori can take up a lot of your computer's RAM, so, to fix that, Satori has a b
 
 ### HyperCache
 
-HyperCache technollogy allows to make all of Satori's querys in `logN` time even when you're filtering by custom paramaters with field_array. This consumes more memory than a normal execution of Satori so use it with caution. To activate HyperCache just r
+HyperCache technollogy allows to make all of Satori's querys in `logN` time even when you're filtering by custom paramaters with field_array. This consumes more memory than a normal execution of Satori so use it with caution. To activate HyperCache just run
 
 ```bash
 satori -h
