@@ -47,6 +47,13 @@ asyncio.run(main())
 
 ---
 
+## Running
+You can run and update Satory programatically
+```python
+client.update()
+client.run(username, password, port) #if empty it will default to no auth and port 2310
+```
+
 ## 🗃️ CRUD Operations
 
 ### Create Data
@@ -171,9 +178,9 @@ await client.decrypt({ 'key': 'user:123', 'encryption_key': 'secret' })
 
 ---
 
-## 📦 Array and Reference Manipulation Methods
+## 📦 Array Manipulation Methods
 
-Below are the available methods to manipulate arrays and references in the Satori database using the Python client:
+Below are the available methods to manipulate arrays in the Satori database using the Python client:
 
 ### 🔹 push
 Adds a value to an existing array in an object.
@@ -209,28 +216,6 @@ await client.remove({ 'key': 'user:123', 'array': 'friends', 'value': 'user:456'
 - **array**: Name of the array.
 - **value**: Value to remove.
 
-### 🔹 set_ref
-Sets a reference to another object.
-```python
-await client.set_ref({ 'key': 'user:123', 'ref': 'profile:123' })
-```
-- **key**: Source object key.
-- **ref**: Reference object key.
-
-### 🔹 get_refs
-Retrieves all references for an object.
-```python
-await client.get_refs({ 'key': 'user:123' })
-```
-- **key**: Object key.
-
-### 🔹 delete_ref
-Deletes a specific reference from an object.
-```python
-await client.delete_ref({ 'key': 'user:123', 'ref': 'profile:123' })
-```
-- **key**: Source object key.
-- **ref**: Reference object key to delete.
 
 ---
 
@@ -292,8 +277,6 @@ asyncio.run(main())
 It includes useful methods such as:
 
 - `set`, `delete`, `encrypt`, `decrypt`, `set_vertex`, `get_vertex`, `delete_vertex`, `dfs`
-
-- Reference methods: `set_ref`, `get_refs`, `delete_refs`
 
 - Array methods: `push`, `pop`, `splice`, `remove`
 
@@ -365,6 +348,7 @@ AI responses obbey a different patern:
   results: array //response from the operation made in the db
 }
 ```
+
 ## 💬 Questions or Suggestions?
 
 Feel free to open an issue or contribute!
