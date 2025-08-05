@@ -214,7 +214,7 @@ Satori has AI features integrated that boost developers productivity. By example
 You can train your embedding model manually whenever you want to but Satori will automatically fine-tune your model with any new updates and use this updated model for all emebedding operations.
 
 ### 🔹 train
-Train an embedding model with your data. The model will be at the root of your db in the `satori_semantic_model` folder
+Train an embedding model with your data. The model is accessible on `localhost:5000/model` The model will be at the root of your db in the `satori_semantic_model` folder.
 ```php
 $client->train();
 ```

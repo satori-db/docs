@@ -238,6 +238,12 @@ client.remove(serde_json::json!({
 ```
 ## 🤖 AI Methods
 
+### 🔹 train
+Train an embedding model with your data. The model is accessible on `localhost:5000/model` The model will be at the root of your db in the `satori_semantic_model` folder.
+```rust
+client.train(serde_json::json!({
+})).await?;
+```
 
 ### 🔹 ann
 Perform an Aproximate Nearest Neighbors search
@@ -268,12 +274,7 @@ client.ask(serde_json::json!({
 ```
 
 
-### 🔹 train
-Train an embedding model with your data.
-```rust
-client.train(serde_json::json!({
-})).await?;
-```
+
 
 ### Notes on AI
 
