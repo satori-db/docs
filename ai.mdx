@@ -26,8 +26,9 @@ In order to use Satori AI features you must purchase and have a valid Satori AIC
 Satori's mission is to give the developer more power over his data, that's why we plan offering a complete suite of AI capabilities built-in with satori, to start using our AI capabilities run satori with this command
 
 ```
-satori -ai -l <LICENSE_NUMBER> //you only need to specify the license number in the first launch
+satori -ai -b <BACKEND> -l <LICENSE_NUMBER> //you only need to specify the license number in the first launch
 ```
+`BACKEND` is the LLM backend satori will use for tasks like QUERY and ASK. This parameter must have this format `openai:model-name` or `ollama:model-name`. This will be the default backend you will use for all LLM operations, but if you wish you can change it dinamically by adding the `backend` field to QUERY or ASK operations. If this parameter isn't specified it will default to `openai:gpt-4o-mini`. If you're using OpenAI as your backend you need to have the `OPENAI_API_KEY` env variable declared.
 
 This will download a `~100MB`  model.
 
