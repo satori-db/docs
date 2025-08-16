@@ -39,6 +39,39 @@ You can run Satori with multiple arguments, this are
 -t <threshold> //memory threshold at which MEMORY_BALANCE is activated, example: satori -t 80 (memory balancing will be activated at 80% memory consumption)
 ```
 
+## Importing
+
+If you already have a database with Mongo, Surreal or any other you can import it into Satori
+
+```bash
+satori -i <format> <file>
+```
+
+Format can be `mongo` `surreal` or `json` .
+
+Mongo format takes objects like this
+
+```
+{obj1}
+{obj2}
+```
+
+All objects are separated by a `\n` . This is the standard Mongo export format. Object keys are infered from the default `oid`  property
+
+Surreal exports are SurrealQL files. All object keys are inferred if there is a key or id property and object type is inferred from the table name.
+
+JSON is a generic format. If you work with any other DB just export your data into this format. An array of json objects
+```
+[
+{obj1}, {obj2}
+]
+```
+In this format object keys are also inferred by the property `key` or `id`.
+If key must be inferred from any other field specify it with the `-k` arg
+```
+satori -i <format> <file> -k body.info.name //body.info.name
+```
+If the property specified with `-k` is present it will be used as key, if not, a random uuid will be asigned.
 ## CLI
 
 When you install satori you also install Satori's CLI, run
