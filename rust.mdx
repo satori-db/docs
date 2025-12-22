@@ -232,12 +232,6 @@ client.remove(serde_json::json!({
 ````
 ## 🤖 AI Methods
 
-### 🔹 train
-Train an embedding model with your data. The model is accessible on `localhost:5000/model` The model will be at the root of your db in the `satori_semantic_model` folder.
-```rust
-client.train(serde_json::json!({
-})).await?;
-````
 
 ### 🔹 ann
 
@@ -271,6 +265,16 @@ client.ask(serde_json::json!({
     "backend": "openai:gpt-4o-mini"
 })).await?;
 ```
+
+### 🔹 set_middleware
+Make the LLM analyze incoming querys and decide if it must reject them, accept them or modify them.
+```rust
+client.set_middleware(serde_json::json!({
+    "operation": "SET",
+    "middleware": "Only accept requests that have the amount field specified, and convert its value to dollars"
+})).await?;
+```
+
 
 ### Notes on AI
 
