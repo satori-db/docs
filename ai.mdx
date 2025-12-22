@@ -6,19 +6,6 @@ title: "AI "
 
 In order to use Satori AI features you must purchase and have a valid Satori AICore License.
 
-## Setup
-
-- You must have `python` installed
-- You must install the dependencies listed on [requirements.txt](www.satoridb.com/requirements.txt)
-
-```
-  pip install -r https://www.satoridb.com/requirements.txt
-```
-
-- You must install `torch`, we suggest installing it from the official torch docs.
-
----
-
 <Info>
   If authentication is enabled you must specify `username` and `password` in every request
 </Info>
@@ -26,15 +13,14 @@ In order to use Satori AI features you must purchase and have a valid Satori AIC
 Satori's mission is to give the developer more power over his data, that's why we plan offering a complete suite of AI capabilities built-in with satori, to start using our AI capabilities run satori with this command
 
 ```
-satori -ai -b <BACKEND> -l <LICENSE_NUMBER> //you only need to specify the license number in the first launch
+satori -ai -b <BACKEND> -l <LICENSE_KEY> //you only need to specify the license key in the first launch
 ```
-`BACKEND` is the LLM backend satori will use for tasks like QUERY and ASK. This parameter must have this format `openai:model-name` or `ollama:model-name`. This will be the default backend you will use for all LLM operations, but if you wish you can change it dinamically by adding the `backend` field to QUERY or ASK operations. If this parameter isn't specified it will default to `openai:gpt-4o-mini`. If you're using OpenAI as your backend you need to have the `OPENAI_API_KEY` env variable declared.
 
-This will download a `~100MB`  model.
+`BACKEND` is the LLM backend satori will use for tasks like QUERY and ASK. This parameter must have this format `openai:model-name` or `ollama:model-name`. This will be the default backend you will use for all LLM operations, but if you wish you can change it dinamically by adding the `backend` field to QUERY or ASK operations. If this parameter isn't specified it will default to `openai:gpt-4o-mini`. If you're using OpenAI as your backend you need to have the `OPENAI_API_KEY` env variable declared.
 
 ## AI Operations
 
-Satori implements some interesting AI features like training your own embedding model with your data, performing Aproximate Nearest Neighbors searchs, Natural Language Querys and Chatting with your data. This is accomplished via 4 function `train` `ann` `query` `ask`
+Satori implements some interesting AI features like performing Aproximate Nearest Neighbors searchs, Natural Language Querys and Chatting with your data.`ann` `query` `ask`
 
 ### QUERY
 
@@ -76,12 +62,16 @@ Allows to chat with the DB.
 
 </ResponseExample>
 
-### ANN
+### ANN || GET_SIMILAR
 
 Perform an Aproximate Nearest Neighbors search
 
 <ParamField body="key" type="string">
   Source object key
+</ParamField>
+
+<ParamField body="vector" type="string">
+  Vector to find nearest neighbors
 </ParamField>
 
 <ParamField body="top_k" type="int">
@@ -95,3 +85,15 @@ Perform an Aproximate Nearest Neighbors search
 ```
 
 </ResponseExample>
+
+### SET_MIDDLEWARE
+
+Make the LLM analyze incoming querys and decide if it must reject them, accept them or modify them.
+
+<ParamField body="operation" type="string">
+  The operation that the middleware will be applied to. Ex: SET
+</ParamField>
+
+<ParamField body="middleware" type="string">
+  Prompt for the middleware. Ex: Only accept requests that have the amount field specified, and convert its value to dollars.
+</ParamField>

@@ -184,7 +184,9 @@ client.decrypt(serde_json::json!({
 Below are the available methods to manipulate arrays in the Satori database using the Rust client:
 
 ### 🔹 push
+
 Adds a value to an existing array in an object.
+
 ```rust
 client.push(serde_json::json!({
     "key": "user:123",
@@ -194,7 +196,9 @@ client.push(serde_json::json!({
 ```
 
 ### 🔹 pop
+
 Removes the last element from an array in an object.
+
 ```rust
 client.pop(serde_json::json!({
     "key": "user:123",
@@ -203,7 +207,9 @@ client.pop(serde_json::json!({
 ```
 
 ### 🔹 splice
+
 Modifies an array in an object (for example, to cut or replace elements).
+
 ```rust
 client.splice(serde_json::json!({
     "key": "user:123",
@@ -212,7 +218,9 @@ client.splice(serde_json::json!({
 ```
 
 ### 🔹 remove
+
 Removes a specific value from an array in an object.
+
 ```rust
 client.remove(serde_json::json!({
     "key": "user:123",
@@ -221,7 +229,7 @@ client.remove(serde_json::json!({
 })).await?;
 ```
 
-```
+````
 ## 🤖 AI Methods
 
 ### 🔹 train
@@ -229,19 +237,23 @@ Train an embedding model with your data. The model is accessible on `localhost:5
 ```rust
 client.train(serde_json::json!({
 })).await?;
-```
+````
 
 ### 🔹 ann
+
 Perform an Aproximate Nearest Neighbors search
+
 ```rust
 client.ann(serde_json::json!({
-    "key": "user:123",
+    "key": "user:123", //or vector: [f32]
     "top_k" : 5 //return the top 5 neighbors
 })).await?;
 ```
 
 ### 🔹 query
+
 Make a query to the db in natural language
+
 ```rust
 client.query(serde_json::json!({
     "query": "Insert the vertex user:2 to user:123",
@@ -249,18 +261,16 @@ client.query(serde_json::json!({
 })).await?;
 ```
 
-
 ### 🔹 ask
+
 Ask questions about your data
+
 ```rust
 client.ask(serde_json::json!({
     "question": "How many users over 25 do we have",
     "backend": "openai:gpt-4o-mini"
 })).await?;
 ```
-
-
-
 
 ### Notes on AI
 
@@ -284,15 +294,12 @@ let satori = Satori::connect("username", "password", "ws://localhost:1234").awai
 let mut user = Schema::new(&satori, "user", Some("my_key".into()), Some(json!({ "name": "Anna" })));
 
 user.set().await.unwrap();
-
 ```
 
 It includes useful methods such as:
 
 - `set`, `delete`, `encrypt`, `decrypt`, `set_vertex`, `get_vertex`, `delete_vertex`, `dfs`
-
 - Array methods: `push`, `pop`, `splice`, `remove`
-
 
 ## 📝 Complete Example
 
@@ -321,8 +328,6 @@ async fn main() -> anyhow::Result<()> {
 }
 ```
 
-
-
 ---
 
 ## 🧠 Key Concepts
@@ -334,7 +339,9 @@ async fn main() -> anyhow::Result<()> {
 - **vertices**: Graph-like relationships between objects.
 
 ---
+
 ## Responses
+
 All responses obbey the following pattern:
 
 ```ts
@@ -346,7 +353,9 @@ All responses obbey the following pattern:
 ```
 
 AI responses obbey a different patern:
+
 ## ask
+
 ```ts
 {
   response: string //response to the question
@@ -354,6 +363,7 @@ AI responses obbey a different patern:
 ```
 
 ## query
+
 ```ts
 {
   result: string //response from the operation made in the db
@@ -362,6 +372,7 @@ AI responses obbey a different patern:
 ```
 
 ## ann
+
 ```ts
 {
   results: array //response from the operation made in the db
@@ -370,7 +381,6 @@ AI responses obbey a different patern:
 
 ## 💬 Questions or Suggestions?
 
-Feel free to open an issue or contribute!
-With ❤️ from the Satori team.
+Feel free to open an issue or contribute! With ❤️ from the Satori team.
 
 ---

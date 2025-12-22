@@ -7,10 +7,24 @@ Satori provides system operations for controlling the inner workings of the engi
 ## SET_USER
 
 Create a user
+
 <ParamField body="username" type="string">
+  
 </ParamField>
+
 <ParamField body="password" type="string">
+  
 </ParamField>
+
 <ParamField body="permission" type="string">
-Must be ```R || W || RW```
+  Must be `R || W || RW`
+</ParamField>
+
+## GET_OPERATIONS
+Get the latest operations
+
+## GET_ACESS_FREQUENCY
+How many querys has been made to an object.
+<ParamField body="key" type="string">
+  
 </ParamField>

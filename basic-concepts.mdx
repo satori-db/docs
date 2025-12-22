@@ -36,6 +36,9 @@ You can run Satori with multiple arguments, this are
 -a <username> <password> //enable authentication and set root user
 -mem //use satori as a memory-only database
 -mem_t <threshold> //memory threshold at which MEMORY_BALANCE is activated, example: satori -t 80 (memory balancing will be activated at 80% memory consumption)
+-emb_b <embedding_backend> //ex: ollama:model || openai:model
+-b <ai_backend> //llm backend to use query and ask operations ex: ollama:model || openai:model
+-ne //disable embedding generation
 ```
 
 ## Migration
@@ -60,17 +63,21 @@ All objects are separated by a `\n` . This is the standard Mongo export format. 
 Surreal exports are SurrealQL files. All object keys are inferred if there is a key or id property and object type is inferred from the table name.
 
 JSON is a generic format. If you work with any other DB just export your data into this format. An array of json objects
+
 ```
 [
 {obj1}, {obj2}
 ]
 ```
-In this format object keys are also inferred by the property `key` or `id`.
-If key must be inferred from any other field specify it with the `-k` arg
+
+In this format object keys are also inferred by the property `key` or `id`. If key must be inferred from any other field specify it with the `-k` arg
+
 ```
 satori -i <format> <file> -k body.info.name //body.info.name
 ```
+
 If the property specified with `-k` is present it will be used as key, if not, a random uuid will be asigned. There is also a `-t` parameter to set the class that works just the same as the `-k` parameter
+
 ## CLI
 
 When you install satori you also install Satori's CLI, run
@@ -132,8 +139,7 @@ Operations or commands are the querys you make to the database, these are simple
     <ParamField body="command" type="string" required>
       The operation you want to execute
     </ParamField>
-    and
-    `...request specific parameters such as (key, encryption_key, etc...)`
+    and `...request specific parameters such as (key, encryption_key, etc...)`
   </Step>
 </Steps>
 
@@ -157,13 +163,9 @@ When authentication is enabled, users are the only ones who can access the datab
 
 <ParamField body="permissions" type="number">
   `R || W || RW`
+
+  ### 
 </ParamField>
-
-### References
-
-References are strings that point to an specific object, an example of this is an email that points to an user
-
-`test@gmail.com -> Object(test_username)`
 
 ### Network Password
 
@@ -176,14 +178,6 @@ Is encouraged to set a network password in order to ensure a secure communicatio
 ### Memory balancing
 
 Satori can take up a lot of your computer's RAM, so, to fix that, Satori has a built-in memory balancing system that frees up memory when it has reached a critical point, because of that, satori stores objects as separate `json` files inside the `db` folder, this allows for faster reads whenever an object is not in memory because of memory saving matters.
-
-### HyperCache
-
-HyperCache technollogy allows to make all of Satori's querys in `logN` time even when you're filtering by custom paramaters with field_array. This consumes more memory than a normal execution of Satori so use it with caution. To activate HyperCache just run
-
-```bash
-satori -h
-```
 
 ## Learn more
 
