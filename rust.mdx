@@ -280,6 +280,21 @@ The trained embedding model will be at the root of your db in a folder called `s
 
 You can train your embedding model manually whenever you want to but Satori will automatically fine-tune your model with any new updates and use this updated model for all emebedding operations.
 
+## Analytics
+
+### 🔹 get_operations
+
+Returns all operations executed on the database.
+
+### 🔹 get_access_frequency
+
+Returns the number of times an object has been queried or accessed.
+```rust
+client.get_access_frequency(serde_json::json!({
+    "key": "user:1",
+})).await?;
+```
+
 ---
 
 # 🦀 Schema Struct (Data Model) — Rust
